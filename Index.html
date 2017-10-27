@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Game</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+		<div class="scoretable" id='score' v-bind:style="ScoreStyle">
+		<section id="leftside">
+		<div id="hearts">
+			<h3 v-if="lifes==3"> ♥ ♥ ♥ </h3>
+			<h3 v-if="lifes==2"> ♥ ♥ </h3> <h3 v-if="lifes==2" class="disable"> ♥ </h3>
+			<h3 v-if="lifes==1"> ♥ </h3> <h3 v-if="lifes==1" class="disable"> ♥ ♥ </h3>
+			<h3 v-if="lifes==0" class="disable"> ♥ ♥ ♥ </h3>
+		</div>
+			<div id="level">Level: {{level}}</div>
+		</section>
+		<section id="centerside">
+			<div id="scores">Scores: {{scores}}</div>
+		</section>
+		<section id="rightside">
+			<div id="time">Time: {{time}}</div>
+		</section>
+		
+	
+			<div id="pause" v-if="lifes<0">
+				<br><br>
+				<p> Game over </p>
+
+			</div>
+	
+
+			<button v-if="lifes<0" v-on:click="Restart">Заново</button>
+			<button v-if="play==false" v-on:click="NextLevel">Далі</button>
+		</div>
+		<div id="bricksblock">
+			<div class="brick" v-for="b in bricks" v-bind:style="Style(b)" v-bind:id="b.id"></div>	
+		</div>
+		<div class="ball" id='playball' v-bind:style="Style"></div>
+		<div class="static" id='playrocket' v-bind:style="Style"></div>
+
+</body>
+		<script type="text/javascript" src="js/script.js"></script>
+</html>

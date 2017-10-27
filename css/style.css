@@ -1,0 +1,180 @@
+		body{
+		height: 99vh;
+		width: 99%;
+		padding: 0:
+  		margin: 0;
+  		background-color: #444;
+  		font-family: 'Open Sans', sans-serif;
+		font-weight: bold;
+		font-size: 28px;
+		color: #fff;
+		//text-align: center;
+		//cursor:none;
+		}
+		h3{
+			display: inline;
+			color: #dd6a6a;
+		}
+		h3.disable{
+			color: #6f6a6a;
+		}
+		.scoretable{
+	  	height: 48px;
+	 	background-color: #2a2a2a;
+	 	position: absolute;
+	  	opacity: 0.5;
+	  	border-radius: 1px 1px;
+	  	display: table;
+	  	line-height: 100%;
+
+	  	color: #fff;
+	  	display: flex;
+	  	font-size: 18px;
+	  	transition: left 1s, top 1s, height 1s, width 1s;
+	  	cursor: pointer;
+	  	z-index: 1;
+		}
+		.scoretable #leftside{
+			width: 34%;
+			min-width: 20%;
+			display: inline-block;
+			//height: 100%;
+		}
+		.scoretable #centerside{
+			width: 33%;
+			min-width: 20%;
+			display: inline-block;
+			text-align: center;
+			//height: 100%;
+		}
+		.scoretable #rightside{
+			width: 33%;
+			min-width: 20%;
+			display: inline-block;
+			text-align: right;
+			//height: 100%;	
+		}
+		#hearts{
+			margin-top: 3%;
+			margin-left: 6%;
+			display: inline-block;
+		}
+		#level{
+			margin-top: 3%;
+			margin-left: 8%;
+			display: inline-block;
+		}
+		#scores{
+			//height: 100%;
+			margin-top: 3.5%;
+			display: inline-block;
+		}
+		#time{
+			margin-top: 3.5%;
+			margin-right: 6%;
+			//height: 100%;
+			display: inline-block;
+		}
+		.scoretable button{
+			border: none;
+			background-color: #FFCCCC;
+			height: 10%;
+			width: 20%;
+			position: absolute;
+			top:75%;
+			left: 40%;
+			font-family: 'Open Sans', sans-serif;
+			font-size: 20px;
+			color: #333;
+		}
+		.scoretable #pause{
+			position: absolute;
+			width: 100%;
+			display: inline-block;
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+			font-size: 200%;
+			color: #fcc;
+		}
+
+
+		.ball{
+		position: absolute;
+		height: 30px;
+		width: 30px;
+		background-color: #888;
+		border-radius: 50%;
+		transition: box-shadow 0.1s;
+		}
+		.ball.beat{
+		background-color: #b88;
+		box-shadow: 0px 0px 55px 0px rgba(255,200,200, 1);
+		}
+
+		#playrocket {
+		height: 30px;
+	  	width: 400px;
+	 	background-color: #3a3a3a;
+	 	position: absolute;
+	  	top: 85%;
+	  	opacity: 1;
+	  	border-radius: 5px 5px;
+	  	display: block;
+	  	transition: box-shadow 0.5s;
+		}
+		.static#playrocket {		
+		}
+		.left#playrocket  {
+			box-shadow: inset 200px 0px 100px -50px rgba(255,150,150,0.5), 0px 0px 50px 0px rgba(255,150,150,0.25);
+   		}
+   		.right#playrocket {
+   			box-shadow: inset -200px 0px 100px -50px rgba(255,150,150,0.5), 0px 0px 50px 0px rgba(255,150,150,0.25);
+   		}
+
+		#bricksblock{
+		height: 300px;
+	  	width: 80%;
+	 	//background-color: #555;
+	 	position: absolute;
+	 	display:block;
+	 	top: 10%;
+	 	left:10%;
+	 	//box-shadow: 0px 0px 50px 0px rgba(255,150,150,0.25);
+	 	}
+
+	 	.brick{
+	 	background-color: #6a6a6a;
+	 	position: absolute;
+	 	border: 1px solid #444;
+	 	opacity: 1;
+	    transition: transform 1s, opacity 1s, box-shadow 0.5s, top 0.25s;
+	    text-align: center;
+	 	}
+	 	.brick.blowed {
+	    background-color: #FFCCCC;
+	    -webkit-transform: scale(1.5, 1.5);
+	    transform: scale(1.5, 1.5);
+	    box-shadow: 0px 0px 50px 0px rgba(255,150,150,0.5);
+	    opacity: 0;
+		}
+		.brick.start {
+	    -webkit-transform: scale(1.5, 1.5);
+	    transform: scale(1.5, 1.5);
+	    opacity: 0;
+		}
+		.brick.hitedleft {
+		background-color: #6f6a6a;
+	    -webkit-transform: rotate(-10deg);
+	    transform: rotate(-10deg);
+	    transition-timing-function: ease-in-out;
+		}
+		.brick.hitedright {
+		background-color: #6f6a6a;
+	    -webkit-transform: rotate(+10deg);
+	    transform: rotate(+10deg);
+	    transition-timing-function: ease-in-out;
+		}
+		.brick.hitedup {
+		background-color: #6f6a6a;
+	    transition-timing-function: ease-in-out;
+		}
