@@ -157,15 +157,15 @@
 		  		}
 		  	},
 		  	DestroyBrick(b){
-		  	var index = this.bricks.indexOf(b);
-		  	this.BlowEffect(this.bricks[index]);
-		  	this.HideBrick(this.bricks[index]);
-		  	var blank = true;
-		  	for (var i = 0; i < bricks.bricks.length; i++)
-		  		if (bricks.bricks[i].visible == true) blank = false;
+				var index = this.bricks.indexOf(b);
+				this.BlowEffect(this.bricks[index]);
+				this.HideBrick(this.bricks[index]);
+				var blank = true;
+				for (var i = 0; i < bricks.bricks.length; i++)
+					if (bricks.bricks[i].visible == true) blank = false;
 
-		  	if (blank) game.play = false;
-			//this.bricks.splice(index,1);
+				if (blank) game.play = false;
+				//this.bricks.splice(index,1);
 		  	},
 		  	BlowEffect(b){
 		  		var index = this.bricks.indexOf(b);
@@ -223,26 +223,26 @@
 		});
 
 		var ball = new Vue({
-		  el: '#playball',
-  			created: function(){
-		  		this.Move();
-		  	},
-		  data: {
-		    message: "true",
+			el: '#playball',
+				created: function(){
+					this.Move();
+				},
+			data: {
+				message: "true",
 
-		    X: 50,
-		    Y: 300,
-		    heigth: 30,
-		    width: 30,
+				X: 50,
+				Y: 300,
+				heigth: 30,
+				width: 30,
 
-		    landslideX: 2.0,
-		    landslideY: 3.0,
-		    slideStep: 0.5,
+				landslideX: 2.0,
+				landslideY: 3.0,
+				slideStep: 0.5,
 
-		    right: 1,
-		    down: true
-		  },
-		  computed: {
+				right: 1,
+				down: true
+		},
+			computed: {
 			Style(){
 			 	return {	left: this.X + "px",
 		    				top: this.Y + "px"	}
@@ -251,7 +251,7 @@
 					return rocket.slideWay;
 				}
 			  },
-		  methods: {
+		  	methods: {
 		  	BallReset(){
 
 		  			this.X = 50;
@@ -342,10 +342,8 @@
 			  	setTimeout(()=>{
 					document.getElementById('playball').className = "ball";
 				},100);
+		  	}
 		  }
-		  },
-
-
 		});
 
 		var rocket = new Vue({
@@ -407,6 +405,5 @@
 
 		addEventListener('mousemove', rocket.SetPosition, false);
 		addEventListener('resize', bricks.CorrectBricks, false );
-
 		addEventListener('touchstart', rocket.TouchRocket, false);
     	addEventListener('touchmove', rocket.DragRocket, false);
