@@ -12,7 +12,7 @@
 				play: true
 			},
 			computed:{
-				ScoreStyle: function (currentBrick){
+				ScoreStyle(currentBrick){
 					if(this.lifes>=0 && this.play)
 			 	return {
 			 				left: "2%",
@@ -31,7 +31,7 @@
 				}		  		
 			},
 			methods:{
-				Restart:function(){
+				Restart(){
 					this.level=0;
 					this.lifes=3;
 					this.scores=0;
@@ -50,7 +50,7 @@
 					setTimeout(this.TimeIncrement, 1000);
 					}
 				},
-				NextLevel:function(){
+				NextLevel(){
 					this.level+=1;
 					this.lifes=3;
 					this.scores=0;
@@ -82,25 +82,25 @@
 		  
 		  },
 		  computed: {
-		  		brickWidth: function(){
+		  		brickWidth(){
 		  			return (document.getElementById('bricksblock').clientWidth - 9)*(this.margin/8);
 		  		},
-		  		brickHeight: function(){
+		  		brickHeight(){
 		  			return (document.getElementById('bricksblock').clientHeight * 0.1);
 		  		},
-		  		Punched: function(){
+		  		Punched(){
 
 				},		
 		  },
 		  methods: {
-		  	Style: function (currentBrick){
+		  	Style(currentBrick){
 			 	return {	left: currentBrick.X + "px",
 		    				top: currentBrick.Y + "px",
 		    				width: currentBrick.width + "px",
 		    				height: currentBrick.height + "px"
 						}
 		  		},
-		  	SetBricks:function (){
+		  	SetBricks(){
 		  		var block = document.getElementById('bricksblock');
 		  		this.x=this.margin;
 		  		this.y=this.margin;
@@ -123,19 +123,19 @@
 		  		}
 		  		this.MoveSegment();
 		  	},
-		  	ResetBricks:function(){
+		  	ResetBricks(){
 		  			document.getElementById('bricksblock').style.top = "10%";
 		  			this.bricks=[];
 		  			this.EnterBricks();
 		  	},
-		  	EnterBricks: function(){
+		  	EnterBricks(){
 		  		this.SetBricks();
   				for (var i=0; i<this.bricks.length; i++){
   					document.getElementById(this.bricks[i].id).innerHTML = "";
 		  			document.getElementById(this.bricks[i].id).className = "brick";
 		  		}
 		  	},
-		  	MoveSegment: function(){
+		  	MoveSegment(){
 		  		var claster = document.getElementById('bricksblock');
 		  		var rocket = document.getElementById('playrocket');
 		  		if (claster.offsetTop+claster.clientHeight>=playrocket.offsetTop) game.lifes=-1;
@@ -143,7 +143,7 @@
 		  		if (game.lifes>=0 && game.play==true)
 		  		setTimeout(this.MoveSegment, 1000/this.speed);
 		  	},
-		  	CorrectBricks:function (){
+		  	CorrectBricks(){
 			var blockSegment = document.getElementById('bricksblock');
 			var currBricksArr = document.getElementsByClassName('brick');
 		  		this.x=this.margin;
@@ -157,7 +157,7 @@
 					this.x+=(blockSegment.clientWidth - 9)*(this.margin/8)+this.margin;
 		  		}
 		  	},
-		  	DestroyBrick: function(b){
+		  	DestroyBrick(b){
 		  	var index = this.bricks.indexOf(b);
 		  	this.BlowEffect(this.bricks[index]);
 		  	this.HideBrick(this.bricks[index]);
@@ -168,7 +168,7 @@
 		  	if (blank==true) game.play=false;
 			//this.bricks.splice(index,1);
 		  	},
-		  	BlowEffect:function (b){
+		  	BlowEffect(b){
 		  		var index = this.bricks.indexOf(b);
 		  		var brick = document.getElementById(b.id);
 		  		brick.innerHTML="+"+b.credits;
@@ -215,7 +215,7 @@
 		  			}, 300);
 		  		} 		
 		  	},
-		  	HideBrick:function(brick){
+		  	HideBrick(brick){
 		  		brick.visible = false;
 		  	}
 
@@ -244,16 +244,16 @@
 		    down: true
 		  },
 		  computed: {
-			Style: function (){
+			Style(){
 			 	return {	left: this.X + "px",
 		    				top: this.Y + "px"	}
 		  		},
-			RocketTrajectory: function(){
+			RocketTrajectory(){
 					return rocket.slideWay;
 				}
 			  },
 		  methods: {
-		  	BallReset: function(){
+		  	BallReset(){
 
 		  			this.X=50;
 					this.Y=300;
@@ -265,7 +265,7 @@
 
 					this.Move();
 		  	},
-		  	Move: function(){
+		  	Move(){
 		  		if (game.lifes>=0 && game.play==true){
 		  		this.CheckCollision();
 			  	if (this.right==1) this.X+=this.landslideX; else if (this.right==-1) this.X-=this.landslideX;
@@ -273,7 +273,7 @@
 			  	setTimeout(this.Move, 1);
 			  }
 			},
-			CheckCollision: function(){
+			CheckCollision(){
 				var rocket = document.getElementById('playrocket');
 					 if (this.X >= document.body.clientWidth-30){ this.right=-1; this.BeatEffect();}
  				else if (this.X <= 1) {this.right=1; this.BeatEffect();}
@@ -287,7 +287,7 @@
 				}
 				this.HitBrick();
 			},
-			CorrectTrajectoryWay: function() {		
+			CorrectTrajectoryWay() {		
 				if(this.right==-1 && this.RocketTrajectory==-1 || this.right==1 && this.RocketTrajectory==1)
 					this.landslideX+=this.slideStep; 
 				else if (this.right==-1 && this.RocketTrajectory==1 || this.right==1 && this.RocketTrajectory==-1)
@@ -300,7 +300,7 @@
 				}
 				if (this.landslideX==0) this.right=0;
 			},
-			HitBrick: function(){
+			HitBrick(){
 				var blockSegment = document.getElementById('bricksblock');
 				for(var i=0; i<bricks.bricks.length; i++){
 					//var brick = document.getElementById(bricks.bricks[i].id);
@@ -323,7 +323,7 @@
 					}
 					}
 					},
-			BeatEffect: function(){
+			BeatEffect(){
 			  	document.getElementById('playball').className="ball beat";
 			  	setTimeout(function(){
 					document.getElementById('playball').className="ball";
@@ -346,28 +346,28 @@
 			touchPos: 0
 			},
 			computed: {
-				Style: function (){
+				Style(){
 			 	return {	left: this.X + "px", width: this.Width + "px"	}
 		  		},
-		  		Width:function(){
+		  		Width(){
 		  			return  document.body.clientWidth/4;
 		  		}
 			},
 			methods: {
-				SetPosition: function(e){
+				SetPosition(e){
 					this.X=e.pageX-this.Width/2;
 					if (this.X < 0) this.X = 0;
 					else if (this.X+this.Width > document.body.clientWidth) this.X = document.body.clientWidth-this.Width;
 					this.CheckWay();
 		  			this.prevPos=this.X;
 				},
-				CheckWay: function(){
+				CheckWay(){
 					var r = document.getElementById('playrocket');
 		  			if (this.X>this.prevPos+15) { this.slideWay = 1; r.className="right";}
 		  			else if (this.X<this.prevPos-15) { this.slideWay = -1; r.className="left";}
 		  			else { this.slideWay = 0; r.className="static";}
 		  		},	
-		  		TouchRocket: function(e){
+		  		TouchRocket(e){
 				var r = document.getElementById('playrocket');
 		  		var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
         		startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
@@ -379,7 +379,7 @@
           		else this.touch = false;
         		e.preventDefault();  
 		  		},
-		  		DragRocket:function(e){
+		  		DragRocket(e){
 		  			var touchobj = e.changedTouches[0];
 		  			if (this.touch) this.X = parseInt(touchobj.clientX)-this.touchPos;;
 		  			if (this.X < 0) this.X = 0;
