@@ -383,8 +383,8 @@
 		  		},	
 		  		TouchRocket(e){
 				var r = document.getElementById('playrocket');
-		  		var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
-        		startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+		  		var touchobj = e.changedTouches[0]; 		// reference first touch point (ie: first finger)
+        		startx = parseInt(touchobj.clientX); 		// get x position of touch point relative to left edge of browser
         		if (startx >= this.X && startx <= this.X + r.clientWidth) 
         		{
         			this.touchPos = startx - this.X;
