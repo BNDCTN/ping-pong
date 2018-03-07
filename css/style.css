@@ -34,20 +34,20 @@
 			cursor: pointer;
 			z-index: 1;
 		}
-		.scoretable #leftside{
+		.scoretable#leftside{
 			width: 34%;
 			min-width: 20%;
 			display: inline-block;
 			/*height: 100%;*/
 		}
-		.scoretable #centerside{
+		.scoretable#centerside{
 			width: 33%;
 			min-width: 20%;
 			display: inline-block;
 			text-align: center;
 			/*height: 100%;*/
 		}
-		.scoretable #rightside{
+		.scoretable#rightside{
 			width: 33%;
 			min-width: 20%;
 			display: inline-block;
