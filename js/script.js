@@ -241,16 +241,16 @@
 
 				right: 1,
 				down: true
-		},
+			},
 			computed: {
-			Style(){
-			 	return {	left: this.X + "px",
-		    				top: this.Y + "px"	}
-		  		},
-			RocketTrajectory(){
-					return rocket.slideWay;
+				Style(){
+					return {	left: this.X + "px",
+								top: this.Y + "px"	}
+				},
+				RocketTrajectory(){
+						return rocket.slideWay;
 				}
-			  },
+			},
 		  	methods: {
 		  	BallReset(){
 
