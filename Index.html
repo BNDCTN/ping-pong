@@ -26,14 +26,11 @@
 			<div id="time">Time: {{time}}</div>
 		</section>
 		
-	
 			<div id="pause" v-if="lifes<0">
 				<br><br>
 				<p> Game over </p>
-
 			</div>
 	
-
 			<button v-if="lifes<0" v-on:click="Restart">Заново</button>
 			<button v-if="play==false" v-on:click="NextLevel">Далі</button>
 		</div>
