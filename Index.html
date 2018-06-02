@@ -9,36 +9,36 @@
 
 <body>
 
-		<div class="scoretable" id='score' v-bind:style="ScoreStyle">
-		<section id="leftside">
-		<div id="hearts">
+		<div class="score-table" id='score' v-bind:style="scoreStyle">
+		<section class="left-side">
+		<div id="hearts" class="hearts">
 			<h3 v-if="lifes==3"> ♥ ♥ ♥ </h3>
 			<h3 v-if="lifes==2"> ♥ ♥ </h3> <h3 v-if="lifes==2" class="disable"> ♥ </h3>
 			<h3 v-if="lifes==1"> ♥ </h3> <h3 v-if="lifes==1" class="disable"> ♥ ♥ </h3>
 			<h3 v-if="lifes==0" class="disable"> ♥ ♥ ♥ </h3>
 		</div>
-			<div id="level">Level: {{level}}</div>
+			<div id="level" class="level">Level: {{level}}</div>
 		</section>
-		<section id="centerside">
-			<div id="scores">Scores: {{scores}}</div>
+		<section class="center-side">
+			<div id="scores" class="scores">Scores: {{scores}}</div>
 		</section>
-		<section id="rightside">
-			<div id="time">Time: {{time}}</div>
+		<section class="right-side">
+			<div id="time" class="time">Time: {{time}}</div>
 		</section>
 		
-			<div id="pause" v-if="lifes<0">
+			<div id="pause" class="pause" v-if="lifes < 0">
 				<br><br>
 				<p> Game over </p>
 			</div>
 	
-			<button v-if="lifes<0" v-on:click="Restart">Заново</button>
-			<button v-if="play==false" v-on:click="NextLevel">Далі</button>
+			<button v-if="lifes < 0" v-on:click="restart">Заново</button>
+			<button v-if="play === false" v-on:click="nextLevel">Далі</button>
 		</div>
-		<div id="bricksblock">
-			<div class="brick" v-for="b in bricks" v-bind:style="Style(b)" v-bind:id="b.id"></div>	
+		<div id="bricks" class="bricks-block">
+			<div class="brick" v-for="b in bricks" v-bind:style="style(b)" v-bind:id="b.id"></div>	
 		</div>
-		<div class="ball" id='playball' v-bind:style="Style"></div>
-		<div class="static" id='playrocket' v-bind:style="Style"></div>
+		<div class="ball" id="ball" v-bind:style="style"></div>
+		<div class="static" id='rocket' v-bind:style="style"></div>
 
 </body>
 		<script type="text/javascript" src="js/script.js"></script>
