@@ -13,13 +13,13 @@
 			},
 			computed: {
 				scoreStyle(currentBrick){
-					if( this.lifes >= 0 && this.play )
+					if (this.lifes >= 0 && this.play) {
 			 			return {
 			 				left: 	"2%",
 		    				top: 	"2%",
 		    				width: 	"96%"
 						}
-						
+					}
 					return { 
 						left: 	"25%", 
 						top: 	"25%", 
@@ -44,7 +44,7 @@
 					this.timeIncrement();
 				},
 				timeIncrement() {
-					if (this.play && this.lifes >= 0){
+					if (this.play && this.lifes >= 0) {
 						this.time++;
 						setTimeout(this.timeIncrement, 1000);
 					}
@@ -58,10 +58,13 @@
 
 					Ball.ballReset();
 
-					if(this.level % 3 == 0) 
+					if(this.level % 3 == 0) {
 						Bricks.bricksAmount += 8;
-					if(this.level % 2 == 0) 
+					}
+
+					if(this.level % 2 == 0) {
 						Bricks.speed++;
+					}
 
 					Bricks.resetBricks();						
 					this.timeIncrement();
@@ -81,7 +84,8 @@
 		  	margin: 1,
 		  	speed: 5,
 		  	bricksAmount: 16,
-		  	bricks: [],
+			bricks: [],
+
 		  },
 		  computed: {
 			element() {
@@ -92,22 +96,19 @@
 		  	},
 		  	brickHeight() {
 		  		return this.element.clientHeight * 0.1;
-		  	},
-		  	punched(){
-
-			}
+		  	}
 		  },
 		  methods: {
 		  	style(currentBrick) {
 			 	return {	
-					 		left: 	`${	currentBrick.x		}px`,
-		    				top: 	`${	currentBrick.y		}px`,
-		    				width: 	`${	currentBrick.width	}px`,
-		    				height: `${	currentBrick.height	}px`
+					 		left: 	currentBrick.x		+ "px",
+		    				top: 	currentBrick.y		+ "px",
+		    				width: 	currentBrick.width	+ "px",
+		    				height: currentBrick.height	+ "px"
 				}
 	  		},
 		  	setBricks() {
-		  		let block 	= this.element;
+		  		let block 	= document.getElementById('bricks');
 		  		this.x 		= this.margin;
 		  		this.y 		= this.margin;
 
@@ -144,12 +145,12 @@
 		  	},
 		  	moveSegment() {
 		  		let claster = document.getElementById('bricks');
-				let rocket 	= document.getElementById('rocket');		  
-				if (claster.offsetTop + claster.clientHeight >= rocket.offsetTop) 
-				  	Game.lifes =- 1;
+				let rocket 	= document.getElementById('rocket');
+				if (claster.offsetTop + claster.clientHeight >= document.body.clientHeight) 
+				  	Game.lifes = -1;
  		  		if (Game.lifes >= 0 && Game.play)
 					setTimeout(this.moveSegment, 1000 / this.speed);
-				 claster.style.top = `${claster.offsetTop + 1}px`;
+				claster.style.top = `${claster.offsetTop + 1}px`;
 		  	},
 		  	correctBricks() {
 				let claster 		= document.getElementById('bricks');
@@ -157,72 +158,86 @@
 					this.x = this.margin;
 					this.y = this.margin;
 				for(let i = 0; i < currBricksArr.length; i++){
-					if (this.x >= claster.clientWidth)
+					if (this.x >= claster.clientWidth) {
 						this.x = this.margin;
-					currBricksArr[i].style.width 	= `${	(claster.clientWidth - 9)*(this.margin/8)	}px`;
-					currBricksArr[i].style.left 	= `${	this.x										}px`;
+					}						
+					currBricksArr[i].style.width 	= (claster.clientWidth - 9) * (this.margin/8) + "px";
+					currBricksArr[i].style.left 	= this.x + "px";
 					this.x += (claster.clientWidth - 9) * (this.margin/8) + this.margin;
 				}
 		  	},
-		  	destroyBrick(b){
+		  	destroyBrick(b) {
+				let blank = true;
 				let index = this.bricks.indexOf(b);
 				this.blowEffect(this.bricks[index]);
 				this.hideBrick(this.bricks[index]);
-				let blank = true;
-				for (let i = 0; i < this.bricks.length; i++)
-					if (this.bricks[i].visible) blank = false;
 
-				if (blank) Game.play = false;
+				for (let i = 0; i < this.bricks.length; i++) {
+					if (this.bricks[i].visible) {
+						blank = false;
+					}
+				}
+
+				if (blank) {
+					Game.play = false;
+				}
 				//this.bricks.splice(index,1);
 		  	},
 		  	blowEffect(b){
 		  		let index = this.bricks.indexOf(b);
-		  		let brick = document.getElementById(b.id);
+				let brick = document.getElementById(b.id);
+
+				Game.scores += b.credits;
 		  		brick.innerHTML = `+${b.credits}`;
-		  		Game.scores += b.credits;
-		  		brick.className = "brick blowed";
+				brick.className = "brick blowed";
+				  
 		  		if (index > 0 && index % 8 != 0 && this.bricks[index-1].visible) {
-		  			document.getElementById(index-1).className = "brick hited-left";
-		  			document.getElementById(index-1).style.top = document.getElementById(index-1).offsetTop - 3 + "px";
-		  			setTimeout(function(){
-		  			document.getElementById(index-1).className = "brick";
-		  			document.getElementById(index-1).style.top = document.getElementById(index-1).offsetTop + 3 + "px";
+					let target = document.getElementById(index-1);
+					target.className = "brick hited-left";
+					target.style.top = target.offsetTop - 3 + "px";
+		  			setTimeout(() => {
+						target.className = "brick";
+						target.style.top = target.offsetTop + 3 + "px";
 		  			}, 300);
 		  		}
-		  		if (index < this.bricks.length-1  && index % 7 != 0 && this.bricks[index+1].visible == true) {
-		  			document.getElementById(index+1).className = "brick hited-right";
-		  			document.getElementById(index+1).style.top = document.getElementById(index+1).offsetTop - 3 + "px";
-					setTimeout(function(){
-		  			document.getElementById(index+1).className = "brick";
-					document.getElementById(index+1).style.top = document.getElementById(index+1).offsetTop + 3 + "px";
-		  		}, 300);
-		  		}
-		  		if (index > 8 && this.bricks[index-8].visible == true) {
-		  			document.getElementById(index-8).className = "brick hited-up";
-		  			document.getElementById(index-8).style.top = document.getElementById(index-8).offsetTop - 5 + "px";
-		  			setTimeout(function(){
-		  			document.getElementById(index-8).className = "brick";
-		  			document.getElementById(index-8).style.top = document.getElementById(index-8).offsetTop + 5 + "px";
+		  		if (index < this.bricks.length-1 && index % 7 != 0 && this.bricks[index+1].visible) {
+					let target = document.getElementById(index+1);
+					target.className = "brick hited-right";
+					target.style.top = target.offsetTop - 3 + "px";
+					setTimeout(() => {
+						target.className = "brick";
+						target.style.top = target.offsetTop + 3 + "px";
 		  			}, 300);
 		  		}
-		  		if (index > 8 && index % 8 != 0 && this.bricks[index-9].visible == true) {
-		  			document.getElementById(index-9).className = "brick hited-left";
-		  			document.getElementById(index-9).style.top = document.getElementById(index-9).offsetTop - 1 + "px";
-		  			setTimeout(function(){
-		  			document.getElementById(index-9).className = "brick";
-		  			document.getElementById(index-9).style.top = document.getElementById(index-9).offsetTop + 1 + "px";
+		  		if (index > 8 && this.bricks[index-8].visible) {
+					let target = document.getElementById(index-8);
+					target.className = "brick hited-up";
+					target.style.top = target.offsetTop - 5 + "px";
+		  			setTimeout(() => {
+						target.className = "brick";
+						target.style.top = target.offsetTop + 5 + "px";
 		  			}, 300);
 		  		}
-		  		if (index > 8 && index % 7 != 0 && this.bricks[index-7].visible == true) {
-		  			document.getElementById(index-7).className = "brick hited-right";
-		  			document.getElementById(index-7).style.top = document.getElementById(index-7).offsetTop - 1 + "px";
-		  			setTimeout(function(){
-		  			document.getElementById(index-7).className = "brick";
-		  			document.getElementById(index-7).style.top = document.getElementById(index-7).offsetTop + 1 + "px";
+		  		if (index > 8 && index % 8 != 0 && this.bricks[index-9].visible) {
+					let target = document.getElementById(index-9);
+					target.className = "brick hited-left";
+					target.style.top = target.offsetTop - 1 + "px";
+		  			setTimeout(() => {
+						target.className = "brick";
+						target.style.top = target.offsetTop + 1 + "px";
+		  			}, 300);
+		  		}
+		  		if (index > 8 && index % 7 != 0 && this.bricks[index-7].visible) {
+					let target = document.getElementById(index-7);
+					target.className = "brick hited-right";
+					target.style.top = target.offsetTop - 1 + "px";
+		  			setTimeout(() => {
+						target.className = "brick";
+						target.style.top = target.offsetTop + 1 + "px";
 		  			}, 300);
 		  		} 		
 		  	},
-		  	hideBrick(brick){
+		  	hideBrick(brick) {
 		  		brick.visible = false;
 		  	}
 		  }
@@ -252,8 +267,8 @@
 				},
 				style() {
 					return {
-						left: 	`${this.x}px`,
-						top: 	`${this.y}px`
+						left: 	this.x + "px",
+						top: 	this.y + "px"
 					}
 				},
 				rocketTrajectory() {
@@ -288,11 +303,11 @@
 					}
 				},
 				checkCollision() {
-					let rocket = Rocket.element; // document.getElementById('playrocket');
+					let rocket = document.getElementById('rocket');
 						if (this.x >= document.body.clientWidth - 30) { 
 							this.right = -1; 
 							this.beatEffect();
-							}
+						}
 						else if (this.x <= 1) {
 							this.right = 1; 
 							this.beatEffect();
@@ -325,8 +340,9 @@
 							this.landslideX += this.slideStep; 
 						}	 	
 					}
-					if (this.landslideX == 0) 
+					if (this.landslideX == 0) {
 						this.right = 0;
+					}
 				},
 				hitBrick() {
 					let blockSegment = document.getElementById('bricks');
@@ -360,7 +376,7 @@
 		  }
 		});
 
-		let Rocket = new Vue({
+		var Rocket = new Vue({
 			el: '#rocket',
 			data: {
 				x:			50,
@@ -377,8 +393,8 @@
 				},
 				style() {
 			 		return {	
-						 left: 	`${this.x}px`, 
-						 width: `${this.width}px`
+						 left: 	this.x 		+ "px", 
+						 width: this.width 	+ "px"
 					}
 		  		},
 		  		width() {
@@ -398,7 +414,7 @@
 		  			this.prevPos = this.x;
 				},
 				checkWay() {
-					let r = Rocket.element;
+					let r = this.element;
 		  			if (this.x > this.prevPos + 15) { 
 						this.slideWay = 1; r.className = "right";
 					}
@@ -410,7 +426,7 @@
 					}
 		  		},	
 		  		touchRocket(e) {
-					let r = Rocket.element;
+					let r = this.element;
 					let touchobj = e.changedTouches[0]; 		// reference first touch point (ie: first finger)
 					startx = parseInt(touchobj.clientX); 		// get x position of touch point relative to left edge of browser
 					
@@ -424,13 +440,13 @@
 		  		},
 		  		dragRocket(e) {
 		  			let touchobj = e.changedTouches[0];
-		  			if ( this.touch ) {
+		  			if (this.touch) {
 						  this.x = parseInt(touchobj.clientX) - this.touchPos;
 					}
-		  			if ( this.x < 0 ) {
+		  			if (this.x < 0) {
 						  this.x = 0;
 					}
-					else if ( this.x + this.width > document.body.clientWidth ) {
+					else if (this.x + this.width > document.body.clientWidth) {
 						  this.x = document.body.clientWidth - this.width;
 					}
 		  			this.checkWay();
@@ -440,7 +456,7 @@
 			}
 		});
 
-		addEventListener('mousemove', Rocket.setPosition, false);
-		addEventListener('resize', Bricks.correctBricks, false );
-		addEventListener('touchstart', Rocket.touchRocket, false);
-    	addEventListener('touchmove', Rocket.dragRocket, false);
+		addEventListener('mousemove', 	Rocket.setPosition, 	false);
+		addEventListener('resize', 		Bricks.correctBricks, 	false );
+		addEventListener('touchstart', 	Rocket.touchRocket, 	false);
+    	addEventListener('touchmove', 	Rocket.dragRocket, 		false);
